@@ -43,7 +43,7 @@ app.get('/login', function(req, res) {
 
 //REQUEST LOCAL HIGHSCORE TABLE
 app.get('/hiscore-local', function(req, res) {
-	hiscoreLocal(req.query.location);
+	hiscoreLocal(escape(req.query.location));
 });
 
 //REQUEST GLOBAL HIGHSCORE TABLE
@@ -93,11 +93,13 @@ app.get('/img', function(req, res, next) {
 //INITIALISE ALL TABLES IN OUR DATABASE
 app.get('/initDatabase', function(req, res){
 	res.send(initDatabase());
+	res.end();
 });
 
 //IMPORT A NEW .PPM IMAGE TO OUR DATABASE
 app.get('/import', function(req, res){
 	importPPM(req.query.filename, req.query.location);
+	res.end();
 });
 
 
@@ -107,11 +109,10 @@ app.get('/import', function(req, res){
 //                 TO DO NOTES                   //
 ///////////////////////////////////////////////////
 // 
-// -- SET UP GIT
-// -- ESCAPE ALL USER INPUT STRINGS IN SQL
+//
+// -- FINISH answerQuestion script to affect DBs
 // -- EDIT 'currentImage' TO WORK WITH MULTIPLE LOCATIONS
-// -- then EDIT ACCEPT ANSWER TO WORK WITH MULTIPLE LOCATIONS
-// 
+// -- COMPLETE LOGIN SCRIPT
 // 
 // 
 // 

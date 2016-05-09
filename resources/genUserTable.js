@@ -12,7 +12,7 @@ module.exports = function() {
 	//Create the join table between user and solvedImage
 	client.query("CREATE TABLE user_solvedImage (userID INT(9) ZEROFILL AUTO_INCREMENT NOT NULL, imageID INT(255), FOREIGN KEY (userID) REFERENCES user(userID), FOREIGN KEY (imageID) REFERENCES solvedImage(imageID))");
 	//Create the question table
-	client.query("CREATE TABLE question (questionID INT(255) PRIMARY KEY, question VARCHAR(255))");
+	client.query("CREATE TABLE question (questionID INT(255) PRIMARY KEY, question VARCHAR(255), answer INT(255), image VARCHAR(255), imageValue INT(255)");
 	//Create the join table between user and question
 	client.query("CREATE TABLE user_question (questionID INT(255), userID INT(9) ZEROFILL AUTO_INCREMENT NOT NULL PRIMARY KEY, FOREIGN KEY (questionID) REFERENCES question(questionID), FOREIGN KEY (userID) REFERENCES user(userID))");
 }

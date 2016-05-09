@@ -1,7 +1,7 @@
 var client = require('./dbHelper');
 
 module.exports = function(username) {
-	query = "SELECT userID FROM user WHERE username = \"" + username + "\"";
+	query = "SELECT userID FROM user WHERE username = \"" + escape(username) + "\"";
 	client.query(query, function(err, result) {
 		if (err !== null) {
 			console.log(err);

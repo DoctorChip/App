@@ -3,5 +3,5 @@ var passHandler = require('./passwordHandler');
 
 module.exports = function(details) {
 
-	passHandler.checkPassword(details.username, details.userpass);
+	passHandler.checkPassword(escape(details.username), escape(details.userpass));
 }
