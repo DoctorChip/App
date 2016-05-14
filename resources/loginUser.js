@@ -1,7 +1,7 @@
 var client = require('./dbHelper');
 var passHandler = require('./passwordHandler');
 
-module.exports = function(details) {
+module.exports = function(req, res, next) {
 
-	passHandler.checkPassword(escape(details.username), escape(details.userpass));
+	passHandler.checkPassword(req, res, next);
 }

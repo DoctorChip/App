@@ -3,9 +3,9 @@ var bcrypt = require('bcrypt');
 const saltRounds = 10;
 
 module.exports = {
-	hashPassword : function(userName, userPassword) {
-		bcrypt.hash(userPassword, saltRounds, function(err, hash) {
-			query = "UPDATE user SET userpass = \"" + hash + "\" WHERE username = \"" + userName + "\"";
+	hashPassword : function(req, res) {
+		bcrypt.hash(req.query.userpass, saltRounds, function(err, hash) {
+			query = "UPDATE user SET userpass = \"" + hash + "\" WHERE username = " + client.escape(req.query.username);
 			client.query(query, function(err, res) {
 				if (err) {
 					console.log(err);
@@ -14,16 +14,17 @@ module.exports = {
 		});
 	},
 
-	checkPassword : function(userName, userPassword) {
-		query = "SELECT userpass FROM user WHERE username = \'" + userName + "\';";
+	checkPassword : function(req, res, next) {
+		query = "SELECT userpass FROM user WHERE username = " + client.escape(req.query.username);
 		client.query(query, function(err, result) {
-			console.log(result[0]["userpass"]);
-			bcrypt.compare(userPassword, result[0]["userpass"], function(err, res) {
-				if (!res) {
-					console.log("Try again.");
+			bcrypt.compare(req.query.userpass, result[0]["userpass"], function(err, result) {
+				if (!result) {
+					res.login = false;
+					next();
 				}
 				else {
-					console.log("Logging in...");
+					res.login = true;
+					next();
 				}
 			});
 		});

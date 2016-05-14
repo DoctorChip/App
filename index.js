@@ -34,12 +34,16 @@ app.listen(app.get('port'), function() {
 
 //REGISTER A NEW USER (change this to POST after we've set up the app to send POST reqs)
 app.get('/register', function(req, res) {
-	register(req.query);
+	register(req, res);
+	res.end();
 });
 
 //ATTEMPT LOGIN
-app.get('/login', function(req, res) {
-	login(req.query);
+app.get('/login', function(req, res, next) {
+	login(req, res, next);
+}, function(req, res) {
+	res.send(res.login);
+	res.end();
 });
 
 //REQUEST LOCAL HIGHSCORE TABLE
@@ -60,6 +64,7 @@ app.get('/user-info', function(req, res) {
 //REQUEST CURRENT USER'S SOLVED IMAGES
 app.get('/user-images', function(req, res) {
 	userImages(req.query.username);
+	res.end();
 });
 
 //REQUEST A NEW QUESTION
@@ -111,12 +116,7 @@ app.get('/import', function(req, res){
 //                 TO DO NOTES                   //
 ///////////////////////////////////////////////////
 // 
-// 
-// -- automate adding new image once one is solved
-// -- COMPLETE LOGIN SCRIPT
-// -- check user image function
-// 
-// 
+// -- automate adding new image once one is solved, need to import to all Location databases in a 'for' loop
 // 
 ///////////////////////////////////////////////////
 
