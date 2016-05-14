@@ -14,5 +14,5 @@ module.exports = function() {
 	//Create the question table
 	client.query("CREATE TABLE question (questionID INT(255) AUTO_INCREMENT PRIMARY KEY, question VARCHAR(255), answer INT(225))");
 	//Create the join table between user and question
-	client.query("CREATE TABLE user_question (questionID INT(255), userID INT(9) ZEROFILL AUTO_INCREMENT NOT NULL PRIMARY KEY, FOREIGN KEY (questionID) REFERENCES question(questionID), FOREIGN KEY (userID) REFERENCES user(userID))");
+	client.query("CREATE TABLE user_question (questionID INT(255), userID INT(9) ZEROFILL AUTO_INCREMENT NOT NULL PRIMARY KEY, FOREIGN KEY (questionID) REFERENCES question(questionID) FOREIGN_KEY_CHECKS=0, FOREIGN KEY (userID) REFERENCES user(userID))");
 }

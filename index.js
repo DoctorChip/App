@@ -4,6 +4,7 @@
 var express = require('express');
 var mysql = require('mysql');
 var question = require('./resources/question');
+var checkQuestionExists = require('./resources/checkQuestionExists');
 var answerQuestion = require('./resources/answerQuestion');
 var storeUserQuestion = require('./resources/storeUserQuestion');
 var currentImg = require('./resources/currentImg');
@@ -63,7 +64,9 @@ app.get('/user-images', function(req, res) {
 
 //REQUEST A NEW QUESTION
 app.get('/new', function(req, res, next) {
-	question.gen(req, res, next);
+	checkQuestionExists(req, res, next, function() {
+		question.gen(req, res, next);
+	});
 }, function(req, res, next) {
     storeUserQuestion(req, res, next);
 }, function(req, res) {
@@ -82,7 +85,7 @@ app.get('/answer', function(req, res, next) {
 app.get('/img', function(req, res, next) {
 	currentImg(req, res, next);
 }, function(req, res) {
-	ImageDir = __dirname + res.currentImage;
+	var imageDir = __dirname + res.currentImage;
 	res.sendFile(imageDir);
 });
 
@@ -104,16 +107,14 @@ app.get('/import', function(req, res){
 
 
 
-
 ///////////////////////////////////////////////////
 //                 TO DO NOTES                   //
 ///////////////////////////////////////////////////
 // 
-//
-// -- FINISH answerQuestion script to affect DBs
-// -- EDIT 'currentImage' TO WORK WITH MULTIPLE LOCATIONS
-// -- COMPLETE LOGIN SCRIPT
 // 
+// -- automate adding new image once one is solved
+// -- COMPLETE LOGIN SCRIPT
+// -- check user image function
 // 
 // 
 // 
