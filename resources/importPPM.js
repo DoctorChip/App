@@ -16,7 +16,7 @@ module.exports = function(filename, location) {
 	var counter = 0;
 
 	//Create our Datastream to read from our .PPM file
-	var dataStream = fs.createReadStream("./img/" + filename + ".ppm");
+	var dataStream = fs.createReadStream("./img/src" + filename + ".ppm");
 	dataStream.setEncoding('ascii');
 	dataStream.on('readable', function() {
 		while ((chunk=dataStream.read()) != null) {
