@@ -39,7 +39,7 @@ function handleResult(err, req, res, next, currentImage, callback) {
                                 }
 
                                 else {
-                                        //Generate the .GIF if no .GIF or .PPM already.
+                                        //Generate the .PPM and .GIF if no .GIF and .PPM already.
                                         generatePPM(null, req, res, next, currentImage);
                                 }
                         });

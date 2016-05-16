@@ -8,7 +8,8 @@ var checkQuestionExists = require('./resources/checkQuestionExists');
 var answerQuestion = require('./resources/answerQuestion');
 var storeUserQuestion = require('./resources/storeUserQuestion');
 var currentImg = require('./resources/currentImg');
-var importPPM = require('./resources/importPPM');
+var importAll = require('./resources/importAll');
+//var importPPM = require('./resources/importPPM');
 var genGIF = require('./resources/genGIF');
 var initDatabase = require('./resources/initDatabase');
 var makeppm = require('./resources/makePPM');
@@ -32,7 +33,7 @@ app.listen(app.get('port'), function() {
 //         SETUP OF USER AVAIL ROUTES            //
 ///////////////////////////////////////////////////
 
-//REGISTER A NEW USER (change this to POST after we've set up the app to send POST reqs)
+//REGISTER A NEW USER
 app.get('/register', function(req, res) {
 	register(req, res);
 	res.end();
@@ -49,16 +50,19 @@ app.get('/login', function(req, res, next) {
 //REQUEST LOCAL HIGHSCORE TABLE
 app.get('/hiscore-local', function(req, res) {
 	hiscoreLocal(escape(req.query.location));
+	res.end();
 });
 
 //REQUEST GLOBAL HIGHSCORE TABLE
 app.get('/hiscore-global', function(req, res) {
 	hiscoreGlobal();
+	res.end();
 });
 
 //REQUEST CURRENT USER INFO
 app.get('/user-info', function(req, res) {
 	userInfo(req.query.username);
+	res.end();
 });
 
 //REQUEST CURRENT USER'S SOLVED IMAGES
@@ -76,6 +80,7 @@ app.get('/new', function(req, res, next) {
     storeUserQuestion(req, res, next);
 }, function(req, res) {
 	res.send(res.question + "... It's " + res.answer + "!");
+	res.end();
 });
 
 //RETURN A QUESTION
@@ -86,12 +91,13 @@ app.get('/answer', function(req, res, next) {
 	res.end();
 });
 
-//REQUEST THE CURRENT IMAGE -- NEEDS CHANGING TO 'USERVAL' NOT 'ACTUALVAL' TO GEN INCOMPLETE IMAGE, NOT COMPLETE
+//REQUEST THE CURRENT IMAGE
 app.get('/img', function(req, res, next) {
 	currentImg(req, res, next);
 }, function(req, res) {
 	var imageDir = __dirname + res.currentImage;
 	res.sendFile(imageDir);
+	res.end();
 });
 
 ///////////////////////////////////////////////////
@@ -106,7 +112,8 @@ app.get('/initDatabase', function(req, res){
 
 //IMPORT A NEW .PPM IMAGE TO OUR DATABASE
 app.get('/import', function(req, res){
-	importPPM(req.query.filename, req.query.location);
+	importAll(req.query.filename);
+	//importPPM(req.query.filename, req.query.location);
 	res.end();
 });
 
@@ -116,11 +123,10 @@ app.get('/import', function(req, res){
 //                 TO DO NOTES                   //
 ///////////////////////////////////////////////////
 // 
-// -- automate adding new image once one is solved, need to import to all Location databases in a 'for' loop
+// ------ high priority ------
+// 
+// ------ low priority -------
+// -- register user needs reforming into less queries and to better handle error messages
+// -- Once android dev begins, look in to editing app.get into app.post
 // 
 ///////////////////////////////////////////////////
-
-
-
-
-

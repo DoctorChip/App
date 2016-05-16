@@ -4,7 +4,7 @@ const saltRounds = 10;
 
 module.exports = {
 	hashPassword : function(req, res) {
-		bcrypt.hash(req.query.userpass, saltRounds, function(err, hash) {
+		bcrypt.hash(escape(req.query.userpass), saltRounds, function(err, hash) {
 			query = "UPDATE user SET userpass = \"" + hash + "\" WHERE username = " + client.escape(req.query.username);
 			client.query(query, function(err, res) {
 				if (err) {
@@ -17,7 +17,7 @@ module.exports = {
 	checkPassword : function(req, res, next) {
 		query = "SELECT userpass FROM user WHERE username = " + client.escape(req.query.username);
 		client.query(query, function(err, result) {
-			bcrypt.compare(req.query.userpass, result[0]["userpass"], function(err, result) {
+			bcrypt.compare(escape(req.query.userpass), result[0]["userpass"], function(err, result) {
 				if (!result) {
 					res.login = false;
 					next();

@@ -36,7 +36,7 @@ module.exports = {
 						stream.write("P3\n");
 						stream.write(width + " " + height + "\n");
 						for (var count = 0; count < result.length; count++) {
-							stream.write(result[count]["raw"] + "\n");
+							stream.write(result[count]["user"] + "\n");
 						};
 					callback();
 					});

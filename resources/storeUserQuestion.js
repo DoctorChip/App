@@ -1,7 +1,7 @@
 var client = require('./dbHelper');
 
 module.exports = function(req, res, next) {
-	client.query("INSERT INTO question (question, answer, image, imageValue) VALUES (\"" + res.question + "\", " + res.answer + ", \"" + res.currentImage + "\", " + res.answerID + ")", function(err, result) {
+	client.query("INSERT INTO question (question, answer, image, imageValue) VALUES (" + client.escape(res.question) + ", " + client.escape(res.answer) + ", \"" + res.currentImage + "\", " + res.answerID + ")", function(err, result) {
 		if (err !== null) {
 			console.log(err);
 		}
@@ -12,7 +12,7 @@ module.exports = function(req, res, next) {
 				}
 				else {
 					var questionID = result[0]["questionID"];
-					client.query("SELECT userID FROM user WHERE username = \"" + escape(req.query.username) + "\"", [questionID], function(err, result) {
+					client.query("SELECT userID FROM user WHERE username = " + client.escape(req.query.username), [questionID], function(err, result) {
 						if (err !== null) {
 							console.log(err);
 						}

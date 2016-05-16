@@ -29,12 +29,12 @@ module.exports = function(req, res) {
 									addDetails(locationID, req, res);	
 									
 									//Create our location Database
-									client.query("CREATE DATABASE " + escape(req.query.location), function(err, result) {
+									client.query("CREATE DATABASE " + req.query.location, function(err, result) {
 										if (err) {
 											console.log(err);
 										}
 										else {
-											client.query("CREATE TABLE " + escape(req.query.location) + ".dimensions (ID INT NOT NULL DEFAULT 0, width INT, height INT)");
+											client.query("CREATE TABLE " + req.query.location + ".dimensions (ID INT NOT NULL DEFAULT 0, width INT, height INT)");
 										}
 									});
 								}

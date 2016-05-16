@@ -3,7 +3,7 @@ var client = require('./dbHelper');
 module.exports = {
 	gen : function(req, res, next) {
 		//Query our database
-        client.query("SHOW TABLES FROM " + escape(req.query.location), [req, res, next], function(err, result) {
+        client.query("SHOW TABLES FROM " + req.query.location, [req, res, next], function(err, result) {
                 if (err) {
                         console.log(err);
                 }
@@ -12,7 +12,7 @@ module.exports = {
                         //Calculate the length of our table and then the last image in the table
                         res.currentImage = "image" + (result.length - 2);
                         //Now we know the correct image, get a random value
-                        query = "SELECT * FROM " + escape(req.query.location) + "." + res.currentImage + " WHERE complete = 0 ORDER BY RAND() LIMIT 1;";
+                        query = "SELECT * FROM " + req.query.location + "." + res.currentImage + " WHERE complete = 0 ORDER BY RAND() LIMIT 1;";
 						client.query(query, [req, res, next], function(err, result) {
 							res.answer = result[0]["raw"];
 							res.answerID = result[0]["ID"];
