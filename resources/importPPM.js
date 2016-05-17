@@ -52,7 +52,7 @@ module.exports = function(filename, location) {
 							targetTable = location + ".image" + tableNumber;
 							addTable(targetTable);
 							while (counter <= (dataLength - 2)) {
-								if (counter >= 3) {
+								if (counter >= 4) {
 									client.query("INSERT INTO " + targetTable + " (raw) VALUES (" + dataArray[counter] + ")");
 								}
 								counter++;

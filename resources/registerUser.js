@@ -34,7 +34,18 @@ module.exports = function(req, res) {
 											console.log(err);
 										}
 										else {
-											client.query("CREATE TABLE " + req.query.location + ".dimensions (ID INT NOT NULL DEFAULT 0, width INT, height INT)");
+											client.query("CREATE TABLE " + req.query.location + ".dimensions (ID INT NOT NULL DEFAULT 0, width INT, height INT)", function(err, result) {
+												if (err) {
+													console.log(err);
+												}
+												else {
+													client.query("INSERT INTO location_image (locationID, imageID) VALUES (" + locationID + ", 0)", function(err, result) {
+														if (err) {
+															console.log(err);
+														}
+													});
+												}
+											});
 										}
 									});
 								}

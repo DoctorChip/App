@@ -9,7 +9,6 @@ var answerQuestion = require('./resources/answerQuestion');
 var storeUserQuestion = require('./resources/storeUserQuestion');
 var currentImg = require('./resources/currentImg');
 var importAll = require('./resources/importAll');
-//var importPPM = require('./resources/importPPM');
 var genGIF = require('./resources/genGIF');
 var initDatabase = require('./resources/initDatabase');
 var makeppm = require('./resources/makePPM');
@@ -22,6 +21,8 @@ var userImages = require('./resources/userImages');
 var path = require('path');
 var serverVersion = require('./resources/serverVersion');
 var app = express();
+
+var tempFindImage = require('./resources/findImage');
 
 //KEEP THE APP LISTENING FOR NEW REQUESTS
 app.set('port', process.env.port || 3000);
@@ -97,7 +98,7 @@ app.get('/img', function(req, res, next) {
 }, function(req, res) {
 	var imageDir = __dirname + res.currentImage;
 	res.sendFile(imageDir);
-	res.end();
+	//res.end();
 });
 
 ///////////////////////////////////////////////////
@@ -111,13 +112,10 @@ app.get('/initDatabase', function(req, res){
 });
 
 //IMPORT A NEW .PPM IMAGE TO OUR DATABASE
-app.get('/import', function(req, res){
+app.get('/import-all', function(req, res){
 	importAll(req.query.filename);
-	//importPPM(req.query.filename, req.query.location);
 	res.end();
 });
-
-
 
 ///////////////////////////////////////////////////
 //                 TO DO NOTES                   //
@@ -126,7 +124,7 @@ app.get('/import', function(req, res){
 // ------ high priority ------
 // 
 // ------ low priority -------
-// -- register user needs reforming into less queries and to better handle error messages
+// -- registerUser needs reforming into less queries and to better handle error messages
 // -- Once android dev begins, look in to editing app.get into app.post
 // 
 ///////////////////////////////////////////////////

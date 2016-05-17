@@ -1,4 +1,8 @@
 var client = require('./dbHelper');
+var importPPM = require('./importPPM');
+var findImage = require('./findImage');
+var convert = require('./genGIF');
+var exportPPM = require('./makePPM');
 
 module.exports = function(req, res, next) {
 
@@ -21,6 +25,7 @@ module.exports = function(req, res, next) {
 		else {
 			//Remove the question from the database, regardless of if it was correct or not		
 			var questionID = result[0]["questionID"];
+			var imageID = result[0]["image"];
 			client.query("DELETE FROM user_question WHERE questionID = " + questionID, function(err, result) {
 				client.query("DELETE FROM question WHERE questionID = " + questionID);
 			});
@@ -29,10 +34,26 @@ module.exports = function(req, res, next) {
 			if (req.query.answer == result[0]["answer"]) {
 				res.result = true;
 					//Add our value to the image table.
-					query = "UPDATE " + req.query.location + "." + result[0]["image"] + " SET user = raw, complete = true WHERE ID = " + result[0]["imageValue"];
+					query = "UPDATE " + req.query.location + "." + imageID + " SET user = raw, complete = true WHERE ID = " + result[0]["imageValue"];
 					client.query(query, function(err, result) {
 						if (err) {
 							console.log(err);
+						}
+						else {
+							//Re-create our image
+							exportPPM.make(req.query.location, function() {
+                				convert.convert(req.query.location + imageID, function() {
+                				}
+                			}
+
+							//check if this value was the last one in the table
+							client.query("SELECT complete FROM " + req.query.location + "." + imageID + " WHERE !complete", function(err, result) {
+								if (result.length = 0) {
+									findImage(req.query.location, function(err, result) {
+										importPPM(filename, req.query.location);
+									});
+								}
+							});
 						}
 					});
 			}

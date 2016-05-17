@@ -35,6 +35,7 @@ module.exports = {
 					stream.once('open', function() {
 						stream.write("P3\n");
 						stream.write(width + " " + height + "\n");
+						stream.write("255\n");
 						for (var count = 0; count < result.length; count++) {
 							stream.write(result[count]["user"] + "\n");
 						};

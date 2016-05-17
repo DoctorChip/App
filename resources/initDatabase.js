@@ -15,4 +15,6 @@ module.exports = function() {
 	client.query("CREATE TABLE question (questionID INT(255) AUTO_INCREMENT PRIMARY KEY, question VARCHAR(255), answer INT(225))");
 	//Create the join table between user and question
 	client.query("CREATE TABLE user_question (questionID INT(255), userID INT(9) ZEROFILL AUTO_INCREMENT NOT NULL PRIMARY KEY, FOREIGN KEY (questionID) REFERENCES question(questionID) FOREIGN_KEY_CHECKS=0, FOREIGN KEY (userID) REFERENCES user(userID))");
+	//Create a table to hold current images for each location
+	client.query("CREATE TABLE location_image (locationID INT(255), imageID INT(255) DEFAULT 0, FOREIGN KEY (locationID) REFERENCES location(locationID))");
 }

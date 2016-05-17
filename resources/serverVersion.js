@@ -1,4 +1,4 @@
-var serverVersion = "v0.25";
+var serverVersion = "v1.00";
 
 module.exports = function() {
 	return serverVersion;
