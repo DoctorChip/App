@@ -7,8 +7,8 @@ The app pits people from different locations against each other to solve problem
 
 # To Do
 
- ------ high priority ------
- 
- ------ low priority -------
- RegisterUser needs reforming into less queries and to better handle error messages
- Once android dev begins, look in to editing app.get into app.post
+-- High Priority
+
+-- Log Priority
+RegisterUser needs reforming into less queries and to better handle error messages
+Once android dev begins, look in to editing app.get into app.post
