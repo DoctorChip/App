@@ -6,5 +6,5 @@ The app pits people from different locations against each other to solve problem
 
 
 # To Do
-RegisterUser needs reforming into less queries and to better handle error messages
-Once android dev begins, look in to editing app.get into app.post
+RegisterUser needs reforming into less queries and to better handle error messages.
+Once android dev begins, look in to editing app.get into app.post.
