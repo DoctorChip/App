@@ -116,15 +116,3 @@ app.get('/import-all', function(req, res){
 	importAll(req.query.filename);
 	res.end();
 });
-
-///////////////////////////////////////////////////
-//                 TO DO NOTES                   //
-///////////////////////////////////////////////////
-// 
-// ------ high priority ------
-// 
-// ------ low priority -------
-// -- registerUser needs reforming into less queries and to better handle error messages
-// -- Once android dev begins, look in to editing app.get into app.post
-// 
-///////////////////////////////////////////////////
