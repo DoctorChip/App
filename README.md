@@ -1,4 +1,4 @@
-# Location-based, multi-platform web API
+# Puzlr: A Location-based, multi-platform web API
 
 This is the source-code for my web-application. Feel free to browse!
 
